@@ -3,7 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +31,7 @@ import {
   ChevronDown,
   BarChart3,
   Clock,
-  DollarSign
+  DollarSign,
 } from "lucide-react";
 import { Agent } from "@shared/api";
 
@@ -53,62 +59,66 @@ interface PromptVersion {
   timestamp: string;
   author: string;
   description: string;
-  environment: 'dev' | 'staging' | 'production';
+  environment: "dev" | "staging" | "production";
 }
 
 const modelProviders: ModelProvider[] = [
   {
-    id: 'openai',
-    name: 'OpenAI',
-    logo: '🤖',
-    models: ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo']
+    id: "openai",
+    name: "OpenAI",
+    logo: "🤖",
+    models: ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"],
   },
   {
-    id: 'anthropic',
-    name: 'Anthropic',
-    logo: '🧠',
-    models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku']
+    id: "anthropic",
+    name: "Anthropic",
+    logo: "🧠",
+    models: ["claude-3-opus", "claude-3-sonnet", "claude-3-haiku"],
   },
   {
-    id: 'google',
-    name: 'Google',
-    logo: '🌟',
-    models: ['gemini-pro', 'gemini-pro-vision']
-  }
+    id: "google",
+    name: "Google",
+    logo: "🌟",
+    models: ["gemini-pro", "gemini-pro-vision"],
+  },
 ];
 
 const mockVersions: PromptVersion[] = [
   {
-    id: '1',
-    version: 'v2.1.3',
-    timestamp: '2 hours ago',
-    author: 'John Doe',
-    description: 'Improved error handling and response quality',
-    environment: 'production'
+    id: "1",
+    version: "v2.1.3",
+    timestamp: "2 hours ago",
+    author: "John Doe",
+    description: "Improved error handling and response quality",
+    environment: "production",
   },
   {
-    id: '2',
-    version: 'v2.1.2',
-    timestamp: '1 day ago',
-    author: 'Jane Smith',
-    description: 'Added context window optimization',
-    environment: 'staging'
+    id: "2",
+    version: "v2.1.2",
+    timestamp: "1 day ago",
+    author: "Jane Smith",
+    description: "Added context window optimization",
+    environment: "staging",
   },
   {
-    id: '3',
-    version: 'v2.1.1',
-    timestamp: '3 days ago',
-    author: 'Mike Johnson',
-    description: 'Initial version with basic functionality',
-    environment: 'dev'
-  }
+    id: "3",
+    version: "v2.1.1",
+    timestamp: "3 days ago",
+    author: "Mike Johnson",
+    description: "Initial version with basic functionality",
+    environment: "dev",
+  },
 ];
 
 export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
-  const [selectedProvider, setSelectedProvider] = useState('openai');
-  const [selectedModel, setSelectedModel] = useState('gpt-4');
-  const [systemPrompt, setSystemPrompt] = useState("You are an expert assistant specialized in providing accurate and helpful responses.");
-  const [userPrompt, setUserPrompt] = useState("Hello, {{name}}! Can you help me with {{task}}?");
+  const [selectedProvider, setSelectedProvider] = useState("openai");
+  const [selectedModel, setSelectedModel] = useState("gpt-4");
+  const [systemPrompt, setSystemPrompt] = useState(
+    "You are an expert assistant specialized in providing accurate and helpful responses.",
+  );
+  const [userPrompt, setUserPrompt] = useState(
+    "Hello, {{name}}! Can you help me with {{task}}?",
+  );
   const [assistantPrompt, setAssistantPrompt] = useState("");
   const [temperature, setTemperature] = useState([0.7]);
   const [maxTokens, setMaxTokens] = useState([2048]);
@@ -116,25 +126,25 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
   const [presencePenalty, setPresencePenalty] = useState([0]);
   const [variables, setVariables] = useState<Record<string, string>>({
     name: "Alex",
-    task: "understanding AI concepts"
+    task: "understanding AI concepts",
   });
   const [testCases, setTestCases] = useState<TestCase[]>([
     {
-      id: '1',
-      name: 'Basic greeting',
-      variables: { name: 'Alice', task: 'learning about AI' },
-      expectedOutput: 'A friendly and informative response'
-    }
+      id: "1",
+      name: "Basic greeting",
+      variables: { name: "Alice", task: "learning about AI" },
+      expectedOutput: "A friendly and informative response",
+    },
   ]);
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<any[]>([]);
   const [compareMode, setCompareMode] = useState(false);
 
-  const currentProvider = modelProviders.find(p => p.id === selectedProvider);
+  const currentProvider = modelProviders.find((p) => p.id === selectedProvider);
 
   const addVariable = () => {
     const newKey = `variable${Object.keys(variables).length + 1}`;
-    setVariables({ ...variables, [newKey]: '' });
+    setVariables({ ...variables, [newKey]: "" });
   };
 
   const updateVariable = (oldKey: string, newKey: string, value: string) => {
@@ -152,7 +162,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
 
   const runTest = async () => {
     setIsRunning(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       const newResult = {
@@ -164,10 +174,10 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
         metrics: {
           responseTime: Math.random() * 2000 + 500,
           tokens: Math.floor(Math.random() * 500 + 100),
-          cost: Math.random() * 0.01 + 0.005
-        }
+          cost: Math.random() * 0.01 + 0.005,
+        },
       };
-      
+
       setResults([newResult, ...results]);
       setIsRunning(false);
     }, 2000);
@@ -178,7 +188,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
       id: Date.now().toString(),
       name: `Test Case ${testCases.length + 1}`,
       variables: { ...variables },
-      expectedOutput: ''
+      expectedOutput: "",
     };
     setTestCases([...testCases, newTestCase]);
   };
@@ -199,12 +209,15 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Provider</Label>
-                <Select value={selectedProvider} onValueChange={setSelectedProvider}>
+                <Select
+                  value={selectedProvider}
+                  onValueChange={setSelectedProvider}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {modelProviders.map(provider => (
+                    {modelProviders.map((provider) => (
                       <SelectItem key={provider.id} value={provider.id}>
                         <div className="flex items-center space-x-2">
                           <span>{provider.logo}</span>
@@ -215,7 +228,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Model</Label>
                 <Select value={selectedModel} onValueChange={setSelectedModel}>
@@ -223,7 +236,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {currentProvider?.models.map(model => (
+                    {currentProvider?.models.map((model) => (
                       <SelectItem key={model} value={model}>
                         {model}
                       </SelectItem>
@@ -246,7 +259,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                   className="w-full"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Max Tokens: {maxTokens[0]}</Label>
                 <Slider
@@ -258,7 +271,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                   className="w-full"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Top K: {topK[0]}</Label>
                 <Slider
@@ -270,7 +283,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                   className="w-full"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Presence Penalty: {presencePenalty[0]}</Label>
                 <Slider
@@ -304,7 +317,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                 className="min-h-[80px] font-mono"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label>User Message</Label>
               <Textarea
@@ -314,7 +327,7 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                 className="min-h-[100px] font-mono"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label>Assistant Message (Optional)</Label>
               <Textarea
@@ -384,12 +397,15 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
               </>
             )}
           </Button>
-          
-          <Button variant="outline" onClick={() => setCompareMode(!compareMode)}>
+
+          <Button
+            variant="outline"
+            onClick={() => setCompareMode(!compareMode)}
+          >
             <BarChart3 className="h-4 w-4 mr-2" />
             Compare
           </Button>
-          
+
           <Button variant="outline">
             <Save className="h-4 w-4 mr-2" />
             Save
@@ -410,16 +426,31 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
           <CardContent>
             <div className="space-y-3">
               {mockVersions.map((version) => (
-                <div key={version.id} className="flex items-center justify-between p-3 border rounded-lg">
+                <div
+                  key={version.id}
+                  className="flex items-center justify-between p-3 border rounded-lg"
+                >
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="font-mono font-medium">{version.version}</span>
-                      <Badge variant={version.environment === 'production' ? 'default' : 'secondary'}>
+                      <span className="font-mono font-medium">
+                        {version.version}
+                      </span>
+                      <Badge
+                        variant={
+                          version.environment === "production"
+                            ? "default"
+                            : "secondary"
+                        }
+                      >
                         {version.environment}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">{version.description}</p>
-                    <p className="text-xs text-gray-500">{version.author} • {version.timestamp}</p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {version.description}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {version.author} • {version.timestamp}
+                    </p>
                   </div>
                   <div className="flex space-x-1">
                     <Button variant="ghost" size="sm">
@@ -461,7 +492,10 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                     </Button>
                   </div>
                   <div className="text-sm text-gray-600">
-                    Variables: {Object.entries(testCase.variables).map(([k, v]) => `${k}="${v}"`).join(', ')}
+                    Variables:{" "}
+                    {Object.entries(testCase.variables)
+                      .map(([k, v]) => `${k}="${v}"`)
+                      .join(", ")}
                   </div>
                 </div>
               ))}
@@ -498,16 +532,20 @@ export function PromptPlaygroundTab({ agent }: PromptPlaygroundTabProps) {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div>
                       <Label className="text-xs text-gray-500">PROMPT</Label>
-                      <p className="text-sm bg-gray-50 p-2 rounded">{result.prompt}</p>
+                      <p className="text-sm bg-gray-50 p-2 rounded">
+                        {result.prompt}
+                      </p>
                     </div>
-                    
+
                     <div>
                       <Label className="text-xs text-gray-500">RESPONSE</Label>
-                      <p className="text-sm bg-blue-50 p-2 rounded">{result.response}</p>
+                      <p className="text-sm bg-blue-50 p-2 rounded">
+                        {result.response}
+                      </p>
                     </div>
                   </div>
                 </div>

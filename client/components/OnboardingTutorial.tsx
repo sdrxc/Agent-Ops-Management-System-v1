@@ -190,7 +190,7 @@ export function OnboardingTutorial({
               </div>
               <div>
                 <DialogTitle className="text-2xl font-bold">
-                  AgentHub Tour
+                  Agentrix Tour
                 </DialogTitle>
                 <DialogDescription>
                   Discover the powerful features of your AI management platform

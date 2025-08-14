@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Bot, Shield } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -36,7 +42,7 @@ export default function Login() {
           <div className="inline-flex items-center justify-center p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-4">
             <Bot className="h-12 w-12 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">AgentHub</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Agentrix</h1>
           <p className="text-white/80 text-lg">AI Agent Management Platform</p>
         </div>
 
@@ -76,7 +82,9 @@ export default function Login() {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">Secure Enterprise Login</span>
+                <span className="px-4 bg-white text-gray-500">
+                  Secure Enterprise Login
+                </span>
               </div>
             </div>
 
@@ -88,8 +96,8 @@ export default function Login() {
 
             {/* Back to dashboard link */}
             <div className="text-center">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 ← Back to Dashboard

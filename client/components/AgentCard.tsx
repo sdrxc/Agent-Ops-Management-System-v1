@@ -2,19 +2,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Activity, 
-  Bot, 
-  Clock, 
-  Play, 
-  Settings, 
-  TrendingUp, 
+import {
+  Activity,
+  Bot,
+  Clock,
+  Play,
+  Settings,
+  TrendingUp,
   DollarSign,
   Hash,
   Zap,
   AlertTriangle,
   Square,
-  Pause
+  Pause,
 } from "lucide-react";
 import { Agent } from "@shared/api";
 
@@ -27,36 +27,51 @@ interface AgentCardProps {
   onCardClick?: (agent: Agent) => void;
 }
 
-export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardClick }: AgentCardProps) {
-  const getStatusColor = (status: Agent['status']) => {
+export function AgentCard({
+  agent,
+  onTest,
+  onConfigure,
+  onStart,
+  onStop,
+  onCardClick,
+}: AgentCardProps) {
+  const getStatusColor = (status: Agent["status"]) => {
     switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'inactive':
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'error':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'training':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'testing':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case "active":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "inactive":
+        return "bg-gray-100 text-gray-800 border-gray-200";
+      case "error":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "training":
+        return "bg-blue-100 text-blue-800 border-blue-200";
+      case "testing":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
-  const getStatusIcon = (status: Agent['status']) => {
+  const getStatusIcon = (status: Agent["status"]) => {
     switch (status) {
-      case 'active':
-        return <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />;
-      case 'inactive':
+      case "active":
+        return (
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+        );
+      case "inactive":
         return <div className="w-2 h-2 bg-gray-400 rounded-full" />;
-      case 'error':
-        return <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />;
-      case 'training':
-        return <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />;
-      case 'testing':
-        return <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />;
+      case "error":
+        return (
+          <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+        );
+      case "training":
+        return (
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+        );
+      case "testing":
+        return (
+          <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
+        );
       default:
         return <div className="w-2 h-2 bg-gray-400 rounded-full" />;
     }
@@ -64,10 +79,10 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
+      return (num / 1000000).toFixed(1) + "M";
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
+      return (num / 1000).toFixed(1) + "K";
     }
     return num.toString();
   };
@@ -93,7 +108,10 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
               </h3>
               <div className="flex items-center space-x-2 mt-1">
                 {getStatusIcon(agent.status)}
-                <Badge variant="outline" className={`${getStatusColor(agent.status)} text-xs font-medium shadow-sm`}>
+                <Badge
+                  variant="outline"
+                  className={`${getStatusColor(agent.status)} text-xs font-medium shadow-sm`}
+                >
                   {agent.status.toUpperCase()}
                 </Badge>
               </div>
@@ -116,13 +134,18 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
         <div className="bg-gray-50/80 rounded-lg p-3 space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-600 font-medium">Version:</span>
-            <Badge variant="secondary" className="text-xs font-mono bg-primary/10 text-primary">
+            <Badge
+              variant="secondary"
+              className="text-xs font-mono bg-primary/10 text-primary"
+            >
               {agent.version}
             </Badge>
           </div>
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-600 font-medium">Last Activity:</span>
-            <span className="text-gray-800 font-medium">{agent.lastActivity}</span>
+            <span className="text-gray-800 font-medium">
+              {agent.lastActivity}
+            </span>
           </div>
         </div>
       </CardHeader>
@@ -140,7 +163,9 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
             <div className="text-lg font-bold text-green-900">
               {agent.performance.successRate}%
             </div>
-            <div className="text-xs text-green-700 font-medium">Success Rate</div>
+            <div className="text-xs text-green-700 font-medium">
+              Success Rate
+            </div>
           </div>
 
           {/* Error Rate */}
@@ -166,7 +191,9 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
             <div className="text-lg font-bold text-blue-900">
               {agent.performance.responseTime}ms
             </div>
-            <div className="text-xs text-blue-700 font-medium">Avg Response</div>
+            <div className="text-xs text-blue-700 font-medium">
+              Avg Response
+            </div>
           </div>
 
           {/* Uptime */}
@@ -208,7 +235,9 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
             <div className="text-lg font-bold text-emerald-900">
               ${agent.sessions.costPerSession.toFixed(3)}
             </div>
-            <div className="text-xs text-emerald-700 font-medium">Cost/Session</div>
+            <div className="text-xs text-emerald-700 font-medium">
+              Cost/Session
+            </div>
           </div>
         </div>
 
@@ -218,19 +247,27 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
             <div className="p-1 bg-amber-100 rounded-full">
               <Zap className="h-4 w-4 text-amber-600" />
             </div>
-            <span className="text-sm font-semibold text-amber-800">Token Usage</span>
+            <span className="text-sm font-semibold text-amber-800">
+              Token Usage
+            </span>
           </div>
           <div className="grid grid-cols-3 gap-3 text-sm">
             <div className="text-center">
-              <div className="font-bold text-amber-900">{formatNumber(agent.tokens.input)}</div>
+              <div className="font-bold text-amber-900">
+                {formatNumber(agent.tokens.input)}
+              </div>
               <div className="text-amber-700 text-xs font-medium">Input</div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-amber-900">{formatNumber(agent.tokens.output)}</div>
+              <div className="font-bold text-amber-900">
+                {formatNumber(agent.tokens.output)}
+              </div>
               <div className="text-amber-700 text-xs font-medium">Output</div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-amber-900">{formatNumber(agent.tokens.total)}</div>
+              <div className="font-bold text-amber-900">
+                {formatNumber(agent.tokens.total)}
+              </div>
               <div className="text-amber-700 text-xs font-medium">Total</div>
             </div>
           </div>
@@ -254,7 +291,7 @@ export function AgentCard({ agent, onTest, onConfigure, onStart, onStop, onCardC
       {/* Quick Action Buttons */}
       <div className="p-4 pt-0 space-y-3 relative z-10">
         <div className="grid grid-cols-2 gap-3">
-          {agent.status === 'active' ? (
+          {agent.status === "active" ? (
             <Button
               variant="outline"
               size="sm"

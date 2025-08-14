@@ -28,17 +28,20 @@ export function UserProfileModal({ isOpen, onClose }: UserProfileModalProps) {
   // Close modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -58,8 +61,12 @@ export function UserProfileModal({ isOpen, onClose }: UserProfileModalProps) {
             </AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Shivam Shivam</h3>
-            <p className="text-xs text-muted-foreground">Enterprise Architect</p>
+            <h3 className="text-sm font-semibold text-foreground">
+              Shivam Shivam
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Enterprise Architect
+            </p>
           </div>
         </div>
 

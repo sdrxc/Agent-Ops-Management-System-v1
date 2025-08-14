@@ -1,5 +1,11 @@
 import { Layout } from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { PlayCircle, Zap, Bot } from "lucide-react";
 
 export default function Playground() {
@@ -31,7 +37,8 @@ export default function Playground() {
             </div>
             <CardTitle className="text-2xl">Playground Coming Soon</CardTitle>
             <CardDescription className="text-lg">
-              We're building an amazing playground experience for testing your agents
+              We're building an amazing playground experience for testing your
+              agents
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -59,8 +66,8 @@ export default function Playground() {
               </div>
             </div>
             <p className="text-sm text-gray-500 mt-6">
-              This feature is currently under development. Continue using the test functionality 
-              in the agent cards on the dashboard.
+              This feature is currently under development. Continue using the
+              test functionality in the agent cards on the dashboard.
             </p>
           </CardContent>
         </Card>

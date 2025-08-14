@@ -70,7 +70,7 @@ export function CollapsibleSidebar({ className }: CollapsibleSidebarProps) {
             </div>
             <div>
               <h2 className="text-sm font-semibold text-foreground">
-                AgentHub
+                Agentrix
               </h2>
               <p className="text-xs text-muted-foreground">AI Management</p>
             </div>

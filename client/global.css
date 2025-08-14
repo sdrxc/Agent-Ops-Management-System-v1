@@ -107,7 +107,7 @@
 
 @layer utilities {
   .animated-gradient {
-    background: linear-gradient(45deg, #30B7B5, #EC7200, #30B7B5, #EC7200);
+    background: linear-gradient(45deg, #30b7b5, #ec7200, #30b7b5, #ec7200);
     background-size: 400% 400%;
     animation: gradient-rotate 8s ease infinite;
   }

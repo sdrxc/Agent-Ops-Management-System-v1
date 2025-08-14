@@ -11,7 +11,11 @@ interface LayoutProps {
   onSearchChange?: (query: string) => void;
 }
 
-export function Layout({ children, searchQuery = "", onSearchChange }: LayoutProps) {
+export function Layout({
+  children,
+  searchQuery = "",
+  onSearchChange,
+}: LayoutProps) {
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -78,9 +82,7 @@ export function Layout({ children, searchQuery = "", onSearchChange }: LayoutPro
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 px-4 py-8 overflow-auto">
-          {children}
-        </main>
+        <main className="flex-1 px-4 py-8 overflow-auto">{children}</main>
       </div>
 
       {/* User Profile Modal */}

@@ -18,7 +18,7 @@ export interface Agent {
   id: string;
   name: string;
   description: string;
-  status: 'active' | 'inactive' | 'error' | 'training' | 'testing';
+  status: "active" | "inactive" | "error" | "training" | "testing";
   version: string;
   model: string;
   lastActivity: string;

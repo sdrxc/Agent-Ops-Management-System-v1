@@ -1,10 +1,21 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +34,7 @@ interface TestResult {
   prompt: string;
   response: string;
   timestamp: string;
-  status: 'success' | 'error' | 'running';
+  status: "success" | "error" | "running";
   responseTime: number;
   cost: number;
 }
@@ -33,13 +44,21 @@ interface Variable {
   value: string;
 }
 
-export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps) {
+export function AgentPlayground({
+  agent,
+  isOpen,
+  onClose,
+}: AgentPlaygroundProps) {
   const [activeTab, setActiveTab] = useState("default");
-  const [systemPrompt, setSystemPrompt] = useState("You are an expert in geography");
-  const [userPrompt, setUserPrompt] = useState("What is the capital of {{country}}?");
+  const [systemPrompt, setSystemPrompt] = useState(
+    "You are an expert in geography",
+  );
+  const [userPrompt, setUserPrompt] = useState(
+    "What is the capital of {{country}}?",
+  );
   const [selectedModel, setSelectedModel] = useState("gpt-3.5-turbo");
   const [variables, setVariables] = useState<Variable[]>([
-    { key: "country", value: "India" }
+    { key: "country", value: "India" },
   ]);
   const [testResults, setTestResults] = useState<TestResult[]>([
     {
@@ -49,8 +68,8 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
       timestamp: "1s",
       status: "success",
       responseTime: 1.67,
-      cost: 0.000052
-    }
+      cost: 0.000052,
+    },
   ]);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -58,7 +77,11 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
     setVariables([...variables, { key: "", value: "" }]);
   };
 
-  const updateVariable = (index: number, field: 'key' | 'value', value: string) => {
+  const updateVariable = (
+    index: number,
+    field: "key" | "value",
+    value: string,
+  ) => {
     const updated = [...variables];
     updated[index][field] = value;
     setVariables(updated);
@@ -70,12 +93,15 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
 
   const runTest = async () => {
     setIsRunning(true);
-    
+
     // Replace variables in the prompt
     let processedPrompt = userPrompt;
-    variables.forEach(variable => {
+    variables.forEach((variable) => {
       if (variable.key && variable.value) {
-        processedPrompt = processedPrompt.replace(`{{${variable.key}}}`, variable.value);
+        processedPrompt = processedPrompt.replace(
+          `{{${variable.key}}}`,
+          variable.value,
+        );
       }
     });
 
@@ -88,9 +114,9 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
         timestamp: "0s",
         status: "success",
         responseTime: Math.random() * 3,
-        cost: Math.random() * 0.001
+        cost: Math.random() * 0.001,
       };
-      
+
       setTestResults([newResult, ...testResults]);
       setIsRunning(false);
     }, 2000);
@@ -137,12 +163,17 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
                   {/* Model Selection */}
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">Model</Label>
-                    <Select value={selectedModel} onValueChange={setSelectedModel}>
+                    <Select
+                      value={selectedModel}
+                      onValueChange={setSelectedModel}
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="gpt-3.5-turbo">gpt-3.5-turbo</SelectItem>
+                        <SelectItem value="gpt-3.5-turbo">
+                          gpt-3.5-turbo
+                        </SelectItem>
                         <SelectItem value="gpt-4">gpt-4</SelectItem>
                         <SelectItem value="gpt-4-turbo">gpt-4-turbo</SelectItem>
                       </SelectContent>
@@ -182,17 +213,24 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
                     </div>
                     <div className="space-y-2">
                       {variables.map((variable, index) => (
-                        <div key={index} className="flex items-center space-x-2">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
                           <Input
                             placeholder="Key"
                             value={variable.key}
-                            onChange={(e) => updateVariable(index, 'key', e.target.value)}
+                            onChange={(e) =>
+                              updateVariable(index, "key", e.target.value)
+                            }
                             className="flex-1"
                           />
                           <Input
                             placeholder="Value"
                             value={variable.value}
-                            onChange={(e) => updateVariable(index, 'value', e.target.value)}
+                            onChange={(e) =>
+                              updateVariable(index, "value", e.target.value)
+                            }
                             className="flex-1"
                           />
                           <Button
@@ -209,8 +247,8 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
                   </div>
 
                   {/* Run Button */}
-                  <Button 
-                    onClick={runTest} 
+                  <Button
+                    onClick={runTest}
                     disabled={isRunning}
                     className="w-full"
                   >
@@ -258,31 +296,45 @@ export function AgentPlayground({ agent, isOpen, onClose }: AgentPlaygroundProps
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          {result.status === 'success' && (
+                          {result.status === "success" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
-                          {result.status === 'running' && (
+                          {result.status === "running" && (
                             <Clock className="h-4 w-4 text-yellow-500" />
                           )}
                           <Badge variant="outline">SUCCESS</Badge>
-                          <span className="text-sm text-gray-500">{result.responseTime.toFixed(2)}s</span>
-                          <span className="text-sm text-gray-500">32 / $0.{result.cost.toFixed(6).split('.')[1]}</span>
+                          <span className="text-sm text-gray-500">
+                            {result.responseTime.toFixed(2)}s
+                          </span>
+                          <span className="text-sm text-gray-500">
+                            32 / $0.{result.cost.toFixed(6).split(".")[1]}
+                          </span>
                         </div>
-                        <span className="text-sm text-gray-500">{result.timestamp}</span>
+                        <span className="text-sm text-gray-500">
+                          {result.timestamp}
+                        </span>
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div>
-                        <Label className="text-xs text-gray-500 uppercase">Prompt</Label>
+                        <Label className="text-xs text-gray-500 uppercase">
+                          Prompt
+                        </Label>
                         <p className="text-sm mt-1">{result.prompt}</p>
                       </div>
                       <Separator />
                       <div>
-                        <Label className="text-xs text-gray-500 uppercase">Response</Label>
+                        <Label className="text-xs text-gray-500 uppercase">
+                          Response
+                        </Label>
                         <p className="text-sm mt-1">{result.response}</p>
                       </div>
                       <div className="flex justify-end">
-                        <Button variant="outline" size="sm" onClick={addTestCase}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={addTestCase}
+                        >
                           Test case
                         </Button>
                       </div>
