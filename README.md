@@ -1,7 +1,7 @@
 # 🧠 AI Agent Ops Management Platform — Frontend
 
 This is the **React + Vite** frontend for the **AI Agent Operation (Ops) Management Platform**, a system that enables seamless lifecycle management of AI agents.  
-The platform leverages **LangSmith**, **LangGraph**, **Amazon EKS**, and a modern **Next.js-inspired UI** built with React and Vite.
+The platform leverages **LangSmith**, **Langfuse**, **Amazon EKS**, **Azure DevOps** and a modern **Next.js-inspired UI** built with React and Vite.
 
 ---
 
